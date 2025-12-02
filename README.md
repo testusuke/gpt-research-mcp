@@ -48,30 +48,10 @@ export LANGFUSE_BASE_URL="https://cloud.langfuse.com"  # EU region
 
 ## MCP サーバーとしてのインストール
 
-### Claude Desktop への登録
-
-`~/.claude/claude_desktop_config.json` を編集して以下を追加:
-
-```json
-{
-  "mcpServers": {
-    "gpt-research": {
-      "command": "uv",
-      "args": ["run", "python", "/path/to/gpt-research-mcp/main.py"],
-      "env": {
-        "OPENAI_API_KEY": "sk-..."
-      }
-    }
-  }
-}
-```
-
-`/path/to/gpt-research-mcp` を実際のパスに置き換えてください。
-
 ### Claude Code への登録
 
 ```bash
-claude mcp add gpt-research -- uv run python /path/to/gpt-research-mcp/main.py
+claude mcp add gpt-research -- uv run --directory /path/to/gpt-research-mcp main.py
 ```
 
 または `~/.claude/settings.json` に直接追加:
@@ -81,7 +61,7 @@ claude mcp add gpt-research -- uv run python /path/to/gpt-research-mcp/main.py
   "mcpServers": {
     "gpt-research": {
       "command": "uv",
-      "args": ["run", "python", "/path/to/gpt-research-mcp/main.py"],
+      "args": ["run", "--directory", "/path/to/gpt-research-mcp", "main.py"],
       "env": {
         "OPENAI_API_KEY": "sk-..."
       }
@@ -89,6 +69,8 @@ claude mcp add gpt-research -- uv run python /path/to/gpt-research-mcp/main.py
   }
 }
 ```
+
+`/path/to/gpt-research-mcp` を実際のパスに置き換えてください。
 
 ## 使用方法
 
