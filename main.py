@@ -3,7 +3,7 @@ import os
 from fastmcp import FastMCP
 
 # FastMCP サーバーインスタンス
-mcp = FastMCP(name="GPT Research Server")
+mcp = FastMCP(name="gpt-search-mcp")
 
 
 def _langfuse_enabled() -> bool:
