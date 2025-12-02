@@ -33,6 +33,19 @@ uv sync
 export OPENAI_API_KEY="sk-..."
 ```
 
+### 4. LangFuse トレーシング（オプション）
+
+LangFuse を使用して OpenAI API 呼び出しの可観測性を有効にできます。以下の環境変数をすべて設定すると自動的に有効化されます:
+
+```bash
+export LANGFUSE_SECRET_KEY="sk-lf-..."
+export LANGFUSE_PUBLIC_KEY="pk-lf-..."
+export LANGFUSE_BASE_URL="https://cloud.langfuse.com"  # EU region
+# export LANGFUSE_BASE_URL="https://us.cloud.langfuse.com"  # US region
+```
+
+環境変数が設定されていない場合は、通常の OpenAI SDK が使用されます。
+
 ## MCP サーバーとしてのインストール
 
 ### Claude Desktop への登録
@@ -112,6 +125,7 @@ research("2024年の AI トレンドについて教えてください")
 | MCP フレームワーク | FastMCP 2.0 |
 | OpenAI クライアント | openai (公式ライブラリ) |
 | モデル | gpt-5.1 |
+| トレーシング（オプション） | LangFuse |
 
 ## ライセンス
 
