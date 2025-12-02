@@ -3,7 +3,10 @@ import os
 from fastmcp import FastMCP
 
 # FastMCP サーバーインスタンス
-mcp = FastMCP(name="gpt-search-mcp")
+mcp = FastMCP(
+    name="gpt-search-mcp",
+    instructions="An AI agent with advanced web search capabilities. Useful for finding the latest information, troubleshooting errors, and discussing ideas or design challenges. Supports natural language queries."
+)
 
 
 def _langfuse_enabled() -> bool:
@@ -32,13 +35,7 @@ client = _create_openai_client()
 @mcp.tool
 def research(query: str) -> str:
     """
-    GPT-5.1とWeb検索を使用してクエリを調査します。
-
-    Args:
-        query: 調査したい質問やトピック
-
-    Returns:
-        調査結果（引用情報を含む）
+    Ask questions, search for information, or consult about complex problems in English.
     """
     # Responses API で Web Search を実行
     response = client.responses.create(
