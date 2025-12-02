@@ -1,11 +1,32 @@
+import os
+
 from fastmcp import FastMCP
-from openai import OpenAI
 
 # FastMCP サーバーインスタンス
 mcp = FastMCP(name="GPT Research Server")
 
-# OpenAI クライアント（環境変数から自動で API キーを読み込み）
-client = OpenAI()
+
+def _langfuse_enabled() -> bool:
+    """LangFuse環境変数がすべて設定されているか確認"""
+    required_vars = [
+        "LANGFUSE_SECRET_KEY",
+        "LANGFUSE_PUBLIC_KEY",
+        "LANGFUSE_BASE_URL",
+    ]
+    return all(os.environ.get(var) for var in required_vars)
+
+
+def _create_openai_client():
+    """環境変数に基づいてOpenAIクライアントを作成"""
+    if _langfuse_enabled():
+        from langfuse.openai import OpenAI
+    else:
+        from openai import OpenAI
+    return OpenAI()
+
+
+# OpenAI クライアント（LangFuse有効時は自動トレース）
+client = _create_openai_client()
 
 
 @mcp.tool
