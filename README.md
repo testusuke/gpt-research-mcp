@@ -33,6 +33,16 @@ uv sync
 export OPENAI_API_KEY="sk-..."
 ```
 
+#### カスタムエンドポイントの使用（オプション）
+
+OpenAI 互換 API（Azure OpenAI、ローカル LLM など）を使用する場合は、`OPENAI_BASE_URL` を設定します:
+
+```bash
+export OPENAI_BASE_URL="https://your-custom-endpoint.com/v1"
+```
+
+設定しない場合は、デフォルトの `https://api.openai.com/v1/` が使用されます。
+
 ### 4. LangFuse トレーシング（オプション）
 
 LangFuse を使用して OpenAI API 呼び出しの可観測性を有効にできます。以下の環境変数をすべて設定すると自動的に有効化されます:
@@ -63,12 +73,15 @@ claude mcp add gpt-research -- uv run --directory /path/to/gpt-research-mcp main
       "command": "uv",
       "args": ["run", "--directory", "/path/to/gpt-research-mcp", "main.py"],
       "env": {
-        "OPENAI_API_KEY": "sk-..."
+        "OPENAI_API_KEY": "sk-...",
+        "OPENAI_BASE_URL": "https://api.openai.com/v1/"
       }
     }
   }
 }
 ```
+
+`OPENAI_BASE_URL` はオプションです。カスタムエンドポイントを使用しない場合は省略可能です。
 
 `/path/to/gpt-research-mcp` を実際のパスに置き換えてください。
 
